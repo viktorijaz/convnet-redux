@@ -7,9 +7,18 @@ import matplotlib.image as mpimg
 import os
 import CIFAR10_CNN_Predict_Image
 import tensorflow
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__, template_folder='client/public/' )
+app = Flask(__name__, )
 CORS(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///images.db'
+db = SQLAlchemy(app)
+
+class FileContents(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name=db.Column(db.String(300))
+    data = db.Column(db.LargeBinary)
 
 #@app.errorhandler(400)
 def not_found(error):
@@ -81,6 +90,20 @@ def make_public_image(image):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/form')
+def upload():
+   return render_template('upload.html')
+
+@app.route('/upload', methods=['POST'])
+def handle():
+   file =  request.files['inputFile']
+
+   newFile = FileContents(name=file.filename, data=file.read())
+   db.session.add(newFile)
+   db.session.commit()
+
+   return 'Saved ' + file.filename + ' to the database'
 
 @app.route('/api/v1.0/images', methods = ['GET'])
 def get_images():
