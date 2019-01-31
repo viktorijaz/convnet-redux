@@ -5,6 +5,8 @@ The pre-trained model and the Teonsorflow code is taken from  [Cristian Kaiser's
 The flask way is adopted frome [Ahmed Gad's repository](https://github.com/ahmedfgad/CIFAR10CNNFlask ).
 The set is standard, CIFAR-10 dataset.
 
+![Project screenshot](screenshot-1.png)
+
 ## Run the project
 
 To run the back-end api:
