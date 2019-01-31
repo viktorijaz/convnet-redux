@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchImages, fetchImage } from '../actions';
+import { fetchImages, fetchImage, fetchFlag } from '../actions';
 
 
 class ImageList extends Component {
@@ -10,11 +10,11 @@ class ImageList extends Component {
   renderList() {
     return this.props.images.map(image => {
       return (
-        <div className="p-1">
-          <div key={image.id_key}>
+        <div className="p-1" key={image.id_key}>
+          <div>
               <div className="column">
                 <img src={image.url} alt={image.title}
-                 onClick={() => this.props.fetchImage(image.id_key)} />
+                 onClick={() => {this.props.fetchImage(image.id_key); this.props.fetchFlag(1)}} />
               </div>
               <div className="item">
                 <div className="right floated content">
@@ -42,5 +42,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchImages, fetchImage }
+  { fetchImages, fetchImage, fetchFlag }
 )(ImageList);

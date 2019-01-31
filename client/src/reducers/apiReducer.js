@@ -1,6 +1,7 @@
 import {
   FETCH_IMAGE,
-  FETCH_IMAGES
+  FETCH_IMAGES,
+  FETCH_FLAG
 } from '../actions/types';
 
 export const imageReducer = (state = [], action) => {
@@ -15,4 +16,11 @@ export const selectedImageReducer = (selectedImage = null, action) => {
     return action.payload;
   }
   return selectedImage;
+};
+
+export const fetchFlagReducer = (initFlag = 0, action) => {
+  if (action.type === FETCH_FLAG) {
+    return action.payload;
+  }
+  return initFlag;
 };

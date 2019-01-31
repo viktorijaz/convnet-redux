@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import { imageReducer, selectedImageReducer } from './apiReducer';
+import { imageReducer, selectedImageReducer, fetchFlagReducer } from './apiReducer';
 
 export default combineReducers({
   selectedImage: selectedImageReducer,
-  images: imageReducer
+  images: imageReducer,
+  flag: fetchFlagReducer
 });
   

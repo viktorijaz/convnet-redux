@@ -1,6 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
+	 background: #ffffff url("img/bg-top.png") no-repeat left top;
 }
 
 .t-m-2 {
@@ -15,18 +16,36 @@ body {
 	background-color: #f9f9fe;
 }
 
+.color-1 {
+	color: #00bd86;
+}
+
+.color-2 {
+	color: #00a6eb;
+}
+
 .pulled-down{
 	margin-top: 5vh;
 }
 
 .card-header {
+	font-size: 1rem;
 	background-color: transparent;
 	border-bottom-color: transparent;
 	font-weight: 600;
 }
 
+.card-header .fa {
+	vertical-align: middle;
+	margin-right: 6px;
+}
+
+.card-header.bottomed {
+	border-bottom-color: #ebebeb;
+}
+
 .card-h {
-	min-height: 30vh;
+	min-height: 20vh;
 }
 
 .card {
@@ -39,4 +58,14 @@ body {
 
 img {
 	cursor: pointer; 
+}
+
+.loader {
+	height: 80px;
+}
+
+.loader img {
+	object-fit: cover;
+	width: 40px;
+	height: 40px;
 }
