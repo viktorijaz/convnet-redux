@@ -5,4 +5,20 @@ The pre-trained model and the Teonsorflow code is taken from  [Cristian Kaiser's
 The flask way is adopted frome [Ahmed Gad's repository](https://github.com/ahmedfgad/CIFAR10CNNFlask ).
 The set is standard, CIFAR-10 dataset.
 
+## Run the project
+
+To run the back-end api:
+
+### `python server.py`
+
+This runs the backend server on port 5000.<br>
+
+
+In the client directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
 
