@@ -10,13 +10,13 @@ import tensorflow
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
-app = Flask(__name__, )
+application = Flask(__name__, )
 
-CORS(app)
+CORS(application)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///images.db'
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
+application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///images.db'
+db = SQLAlchemy(application)
+ma = Marshmallow(application)
 
 class FileContents(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -32,18 +32,18 @@ file_schema = FileContentsSchema()
 files_schema = FileContentsSchema(many=True)
 
 # endpoint to show all images
-@app.route("/api/v1.0/images2", methods=["GET"])
+@application.route("/api/v1.0/images2", methods=["GET"])
 def get_images2():
     all_images = FileContents.query.all()
     result = files_schema.dump(all_images)
     return jsonify(result.data)
 
 
-#@app.errorhandler(400)
+#@application.errorhandler(400)
 def not_found(error):
     return make_response(jsonify( { 'error': 'Bad request' } ), 400)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
-@app.errorhandler(404)
+@application.errorhandler(404)
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
@@ -87,7 +87,7 @@ def CNN_predict(path):
     """
 
     #Reading the image file from the path it was saved in previously.
-    img = mpimg.imread(os.path.join(app.root_path, path['url']))
+    img = mpimg.imread(os.path.join(application.root_path, path['url']))
 
     """
     Checking whether the image dimensions match the CIFAR10 specifications.
@@ -131,15 +131,15 @@ def make_public_image(image):
             new_image[field] = image[field]
     return new_image
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/form')
+@application.route('/form')
 def upload():
    return render_template('upload.html')
 
-@app.route('/upload', methods=['POST'])
+@application.route('/upload', methods=['POST'])
 def handle():
    file =  request.files['inputFile']
 
@@ -150,11 +150,11 @@ def handle():
    return 'Saved ' + file.filename + ' to the database'
 
 
-@app.route('/api/v1.0/images', methods = ['GET'])
+@application.route('/api/v1.0/images', methods = ['GET'])
 def get_images():
     return jsonify( { 'images': [*map(make_public_image, images)] } )
 
-@app.route('/api/v1.0/images/<int:image_id>', methods = ['GET'])
+@application.route('/api/v1.0/images/<int:image_id>', methods = ['GET'])
 def get_image(image_id):
     image = list(filter(lambda t: t['id'] == image_id, images))
     if len(image) == 0:
@@ -162,4 +162,4 @@ def get_image(image_id):
     return jsonify( { 'image': CNN_predict(image[0]) } )
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    application.run(debug = True)
